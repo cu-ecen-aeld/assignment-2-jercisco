@@ -1,5 +1,5 @@
 # Compiler settings
-CC=aarch64-none-linux-gnu-gcc
+CC=gcc
 CFLAGS := -Wall -Wextra -pedantic
 
 # Target and sources
