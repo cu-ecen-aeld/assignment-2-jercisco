@@ -1,30 +1,23 @@
-# Compiler and compiler options
-CC := gcc
-CFLAGS := -Wall -Wextra -std=c11
-LDFLAGS := -L/usr/lib/x86_64-linux-gnu $(LDFLAGS)
+# Compiler settings
+CC=aarch64-none-linux-gnu-gcc
+CFLAGS := -Wall -Wextra -pedantic
 
-
-# Cross-compiler options
-ifdef CROSS_COMPILE
-    CC := $(CROSS_COMPILE)gcc
-    LDFLAGS := $(LDFLAGS) -static
-endif
-
-# Source and object files
+# Target and sources
+TARGET := writer
 SRC := writer.c
-OBJ := writer.o
 
-# Targets
-.PHONY: all clean
+# Object files
+OBJ := $(SRC:.c=.o)
 
-all: writer
+# Default target
+all: $(TARGET)
 
-writer: $(OBJ)
-	$(CC) $(LDFLAGS) -o $@ $^
+# Build target
+$(TARGET): $(OBJ)
+	$(CC) $(CFLAGS) -o $@ $^
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c -o $@ $<
-
+# Clean target
 clean:
-	rm -f writer $(OBJ)
+	rm -f $(TARGET) $(OBJ)
+	
 
